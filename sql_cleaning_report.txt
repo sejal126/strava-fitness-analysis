@@ -1,0 +1,126 @@
+# Fitabase Data Cleaning Report
+
+## 1. Overview
+This report details the SQL data cleaning process performed on the Fitabase database, ensuring data integrity and reliability for analysis.
+
+## 2. Data Cleaning Process
+
+### 2.1 Data Validation Rules
+1. Removed records with negative values for:
+   - Steps
+   - Distance
+   - Calories
+   - Activity Minutes
+   - Weight
+   - BMI
+   - Heart Rate
+
+2. Heart rate values limited to 0-200 BPM
+
+### 2.2 Duplicate Record Handling
+- Removed duplicates from all tables:
+  - daily_activity
+  - daily_intensities
+  - daily_steps
+  - weight_log
+  - minute_steps
+  - heart_rate
+- Kept the earliest record for each unique combination of ID and timestamp
+
+### 2.3 Index Optimization
+- Added indexes for better performance:
+  - ActivityDate (daily_activity)
+  - ActivityDay (daily_intensities)
+  - ActivityDay (daily_steps)
+  - Date (weight_log)
+  - Time (minute_steps)
+  - Time (heart_rate)
+
+### 2.4 Data Constraints
+- Added CHECK constraints to prevent future invalid data:
+  - Steps must be >= 0
+  - Activity minutes must be >= 0
+  - Step totals must be >= 0
+  - Heart rate must be between 0-200 BPM
+
+## 3. Key Insights
+
+### 3.1 Data Quality Issues
+1. Multiple tables contained negative values
+   - Indicates potential data collection or processing issues
+   - Requires further investigation
+
+2. Significant number of duplicates found
+   - Likely due to:
+     - Multiple data collection attempts
+     - Data synchronization issues
+     - API integration problems
+
+3. Heart rate anomalies
+   - Values exceeding 200 BPM
+   - Indicates potential sensor calibration issues
+
+### 3.2 Performance Improvements
+1. Enhanced query performance
+   - Better data retrieval speed
+   - Improved handling of large datasets
+
+2. Prevents future data quality issues
+   - Maintains data integrity
+   - Reduces need for manual cleaning
+
+## 4. Recommendations
+
+### 4.1 Data Collection
+1. Implement client-side validation
+   - Add range checks for all numeric values
+   - Prevent submission of invalid data
+
+### 4.2 Monitoring
+1. Schedule periodic data quality checks
+2. Monitor duplicate record creation
+3. Track constraint violations
+
+## 5. Technical Details
+
+### 5.1 SQL Implementation
+Example queries:
+- Removed negative values:
+```sql
+DELETE FROM daily_activity 
+WHERE TotalSteps < 0 
+   OR TotalDistance < 0 
+   OR Calories < 0;
+```
+
+- Removed duplicates:
+```sql
+DELETE FROM daily_activity 
+WHERE rowid NOT IN (
+    SELECT MIN(rowid) 
+    FROM daily_activity 
+    GROUP BY Id, ActivityDate
+);
+```
+
+- Added constraints:
+```sql
+ALTER TABLE daily_activity 
+ADD CONSTRAINT chk_steps CHECK (TotalSteps >= 0);
+```
+
+### 5.2 Database Structure
+Tables cleaned:
+- daily_activity
+- daily_intensities
+- daily_steps
+- weight_log
+- minute_steps
+- heart_rate
+
+## 6. Conclusion
+The SQL data cleaning process successfully improved data quality and integrity while implementing measures to prevent future issues. The cleaned data is now ready for analysis and reporting.
+
+---
+
+Report generated on: 2025-06-15
