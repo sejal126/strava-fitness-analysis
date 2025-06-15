@@ -1,0 +1,49 @@
+# Power BI Dashboard Insights Report
+
+## 1. Daily Activity Trends
+- Weekdays show higher activity than weekends
+- Monday has the highest activity levels
+- Friday shows a slight dip in activity
+- Some participants show consistent patterns
+- Others show more erratic behavior
+
+## 2. Activity Correlation
+- Strong correlation between steps and calories (r ≈ 0.85)
+- Very active minutes correlate strongly with steps
+- Sedentary minutes show negative correlation
+- Lightly active minutes show moderate correlation
+
+## 3. Time-based Patterns
+- Morning peak: 7-9 AM (likely workouts)
+- Evening peak: 5-7 PM (after work)
+- Sedentary periods: 11 AM-1 PM and 3-5 PM
+- Weekends show more variable patterns
+
+## 4. Filter Impact
+- Date range shows clear weekend effects
+- Participant analysis reveals:
+  - High activity group (consistent patterns)
+  - Low activity group (less structured)
+
+## 5. Business Insights
+- Most participants meet activity recommendations
+- Need for mid-day activity breaks
+- Recommended program times:
+  - Morning: 7-9 AM
+  - Afternoon: 3-4 PM
+  - Evening: 5-7 PM
+
+## 6. Data Quality
+- Some participants have missing days
+- Occasional activity spikes
+- Need for better data validation
+
+## 7. Future Analysis
+- Add heart rate analysis
+- Include sleep data
+- Consider weather impact
+- Develop predictive models
+
+---
+
+Report generated on: 2025-06-15
